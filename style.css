@@ -1,0 +1,447 @@
+/* ==========================================
+   Rohingya Language Centre
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#ffffff;
+    color:#222;
+    font-size:18px;
+    line-height:1.7;
+}
+
+.container{
+    width:95%;
+    max-width:1200px;
+    margin:auto;
+}
+
+/* HEADER */
+
+.site-header{
+    background:#0B6623;
+    color:white;
+    text-align:center;
+    padding:30px 20px;
+    border-bottom:6px solid #D4AF37;
+}
+
+.logo{
+    width:120px;
+    display:block;
+    margin:auto;
+}
+
+.logo-area h1{
+    font-size:2.6rem;
+    margin-top:15px;
+}
+
+.tagline{
+    margin-top:10px;
+    color:#eee;
+}
+
+/* NAVBAR */
+
+.navbar{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:18px;
+    margin-top:25px;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.navbar a:hover{
+    color:#D4AF37;
+}
+
+.language-toggle{
+    background:#D4AF37;
+    border:none;
+    padding:8px 16px;
+    border-radius:6px;
+    cursor:pointer;
+}/* ==========================================
+   HERO
+========================================== */
+
+.hero{
+    padding:80px 20px;
+    text-align:center;
+    background:#ffffff;
+}
+
+.hero h2{
+    font-size:42px;
+    color:#0B6623;
+    margin-bottom:20px;
+}
+
+.hero p{
+    max-width:900px;
+    margin:0 auto;
+    font-size:20px;
+    color:#555;
+}/* ==========================================
+   ABOUT SECTION
+========================================== */
+
+.about{
+    padding:80px 20px;
+    background:#f8f9fa;
+}
+
+.about h2{
+    text-align:center;
+    font-size:38px;
+    color:#0B6623;
+    margin-bottom:20px;
+}
+
+.about-intro{
+    max-width:900px;
+    margin:0 auto 50px;
+    text-align:center;
+    color:#555;
+}
+
+.about-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.about-card{
+    background:#ffffff;
+    padding:30px;
+    border-radius:15px;
+    border-top:5px solid #D4AF37;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.about-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+
+.about-card h3{
+    color:#0B6623;
+    margin-bottom:15px;
+}
+
+.about-card p{
+    color:#555;
+}/* ==========================================
+   PROJECTS
+========================================== */
+
+.projects{
+    padding:80px 20px;
+    background:#ffffff;
+}
+
+.projects h2{
+    text-align:center;
+    font-size:38px;
+    color:#0B6623;
+    margin-bottom:50px;
+}
+
+.projects-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
+
+.project-card{
+    background:#ffffff;
+    padding:30px;
+    border-radius:15px;
+    border-top:5px solid #D4AF37;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.project-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+
+.project-card h3{
+    color:#0B6623;
+    margin-bottom:15px;
+}
+
+.project-card p{
+    color:#555;
+}/* ==========================================
+   GOALS
+========================================== */
+
+.goals{
+    padding:80px 20px;
+    background:#f5f8f5;
+}
+
+.goals h2{
+    text-align:center;
+    font-size:38px;
+    color:#0B6623;
+    margin-bottom:20px;
+}
+
+.goals-intro{
+    max-width:900px;
+    margin:0 auto 50px;
+    text-align:center;
+    color:#555;
+}
+
+.goals-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:30px;
+}
+
+.goal-card{
+    background:#ffffff;
+    text-align:center;
+    padding:35px 25px;
+    border-radius:15px;
+    border-top:5px solid #D4AF37;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.goal-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+
+.goal-card h3{
+    font-size:34px;
+    color:#D4AF37;
+    margin-bottom:15px;
+}
+
+.goal-card p{
+    color:#555;
+}/* ==========================================
+   GOALS
+========================================== */
+
+.goals{
+    padding:80px 20px;
+    background:#f5f8f5;
+}
+
+.goals h2{
+    text-align:center;
+    font-size:38px;
+    color:#0B6623;
+    margin-bottom:20px;
+}
+
+.goals-intro{
+    max-width:900px;
+    margin:0 auto 50px;
+    text-align:center;
+    color:#555;
+}
+
+.goals-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:30px;
+}
+
+.goal-card{
+    background:#ffffff;
+    text-align:center;
+    padding:35px 25px;
+    border-radius:15px;
+    border-top:5px solid #D4AF37;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.goal-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+
+.goal-card h3{
+    font-size:34px;
+    color:#D4AF37;
+    margin-bottom:15px;
+}
+
+.goal-card p{
+    color:#555;
+}/* ==========================================
+   DICTIONARY SEARCH
+========================================== */
+
+.dictionary-search{
+    padding:80px 20px;
+    background:#f8f9fa;
+    text-align:center;
+}
+
+.dictionary-search h2{
+    color:#0B6623;
+    font-size:38px;
+    margin-bottom:20px;
+}
+
+.dictionary-search p{
+    color:#555;
+    margin-bottom:30px;
+}
+
+.search-box{
+    display:flex;
+    justify-content:center;
+    max-width:900px;
+    margin:0 auto 30px;
+}
+
+.search-box input{
+    flex:1;
+    padding:18px;
+    font-size:18px;
+    border:2px solid #D4AF37;
+    border-right:none;
+    border-radius:10px 0 0 10px;
+    outline:none;
+}
+
+.search-box button{
+    padding:18px 35px;
+    background:#0B6623;
+    color:white;
+    border:none;
+    font-size:18px;
+    font-weight:bold;
+    border-radius:0 10px 10px 0;
+    cursor:pointer;
+}
+
+.search-box button:hover{
+    background:#09571d;
+}
+
+#result{
+    max-width:900px;
+    margin:30px auto 0;
+}/* ==========================================
+   FOOTER
+========================================== */
+
+footer{
+    background:#0B6623;
+    color:#ffffff;
+    text-align:center;
+    padding:25px 20px;
+    margin-top:60px;
+}
+
+footer p{
+    font-size:16px;
+}/* ==========================================
+   DICTIONARY CARD
+========================================== */
+
+.dictionary-card{
+    background:#ffffff;
+    padding:30px;
+    border-radius:15px;
+    border-top:5px solid #D4AF37;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    text-align:left;
+}
+
+.dictionary-card h2{
+    color:#0B6623;
+    margin-bottom:20px;
+}
+
+.dictionary-card h3{
+    color:#0B6623;
+    margin:25px 0 15px;
+}
+
+.dictionary-card p{
+    margin-bottom:12px;
+}
+
+.dictionary-card ul{
+    margin-left:25px;
+}
+
+.dictionary-card li{
+    margin-bottom:8px;
+}
+
+.example-box{
+    background:#f5f5f5;
+    padding:15px;
+    border-radius:10px;
+    margin:15px 0;
+}
+
+.dictionary-card img{
+    margin-top:20px;
+    max-width:250px;
+    border-radius:10px;
+}/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width:768px){
+
+    .hero h2,
+    .about h2,
+    .projects h2,
+    .goals h2,
+    .news h2,
+    .dictionary-search h2{
+        font-size:30px;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+    .search-box input{
+        width:100%;
+        border-radius:10px;
+        border-right:2px solid #D4AF37;
+        margin-bottom:10px;
+    }
+
+    .search-box button{
+        width:100%;
+        border-radius:10px;
+    }
+
+    .navbar{
+        flex-direction:column;
+        gap:12px;
+    }
+
+}

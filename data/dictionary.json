@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "english": "a",
+    "englishAudio": "",
+    "ipa": "/ə/, /eɪ/",
+    "partOfSpeech": [
+      "article"
+    ],
+
+    "hanifi": [
+      "𐴀𐴠𐴚𐴒𐴞𐴌𐴝𐴎𐴞𐴌 𐴐𐴟𐴌𐴟𐴌 𐴈𐴡𐴌𐴡𐴉𐴢."
+    ],
+
+    "rohingyaAudio": "",
+
+    "examples": [
+      {
+        "english": "I saw a bird.",
+        "rohingya": "𐴀𐴝𐴣𐴀𐴘 𐴀𐴟𐴒𐴧𐴗𐴤𐴝 𐴉𐴝𐴙𐴑 𐴊𐴞𐴥𐴑𐴧𐴞."
+      }
+    ],
+
+    "synonyms": [],
+
+    "antonyms": [],
+
+    "relatedWords": [],
+
+    "derivedWords": [],
+
+    "wordForms": [],
+
+    "image": ""
+  }
+]
