@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dictionary Editor | Rohingya Language Centre</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <div class="admin-container">
+
+        <aside class="sidebar">
+
+            <h2>Rohingya Language Centre</h2>
+
+            <ul>
+                <li>Dashboard</li>
+
+                <li class="active">
+                    Dictionary
+                </li>
+
+                <li>Users</li>
+
+                <li>Settings</li>
+            </ul>
+
+        </aside>
+
+
+        <main class="content">
+
+            <h1>📖 Dictionary Editor</h1>
+
+
+            <div class="tabs">
+
+                <button
+                    type="button"
+                    class="tab active">
+                    General
+                </button>
+
+                <button
+                    type="button"
+                    class="tab">
+                    Meanings
+                </button>
+
+                <button
+                    type="button"
+                    class="tab">
+                    Relationships
+                </button>
+
+                <button
+                    type="button"
+                    class="tab">
+                    Media
+                </button>
+
+                <button
+                    type="button"
+                    class="tab">
+                    History
+                </button>
+
+            </div>
+
+
+            <div id="editorContent">
+
+                <h2>General Information</h2>
+
+
+                <label for="englishWord">
+                    English Word
+                </label>
+
+                <input
+                    type="text"
+                    id="englishWord"
+                    placeholder="Enter English word">
+
+
+                <label for="category">
+                    Category
+                </label>
+
+                <select id="category">
+
+                    <option value="Food">
+                        Food
+                    </option>
+
+                    <option value="Animals">
+                        Animals
+                    </option>
+
+                    <option value="Education">
+                        Education
+                    </option>
+
+                    <option value="Health">
+                        Health
+                    </option>
+
+                    <option value="Science">
+                        Science
+                    </option>
+
+                    <option value="Religion">
+                        Religion
+                    </option>
+
+                    <option value="Nature">
+                        Nature
+                    </option>
+
+                    <option value="Technology">
+                        Technology
+                    </option>
+
+                    <option value="Society">
+                        Society
+                    </option>
+
+                    <option value="Culture">
+                        Culture
+                    </option>
+
+                </select>
+
+
+                <label for="status">
+                    Status
+                </label>
+
+                <select id="status">
+
+                    <option value="draft">
+                        Draft
+                    </option>
+
+                    <option value="published">
+                        Published
+                    </option>
+
+                </select>
+
+
+                <button
+                    type="button"
+                    id="saveGeneral">
+
+                    Save General Information
+
+                </button>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script src="admin.js"></script>
+
+</body>
+
+</html>

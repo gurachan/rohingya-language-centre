@@ -1,0 +1,50 @@
+{
+  "name": "rohingya-language-centre",
+  "version": "1.0.0",
+  "description": "Preserving and advancing the Rohingya language through dictionaries, AI, research, and digital resources.",
+  "main": "server/server.js",
+  "type": "commonjs",
+
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js",
+    "test": "echo \"No tests configured\""
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gurachan/rohingya-language-centre.git"
+  },
+
+  "keywords": [
+    "rohingya",
+    "hanifi",
+    "dictionary",
+    "language",
+    "corpus",
+    "ai",
+    "translation"
+  ],
+
+  "author": "Rohingya Language Centre",
+  "license": "ISC",
+
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.11.0",
+    "multer": "^2.2.0",
+    "mysql2": "^3.23.2",
+    "uuid": "^14.0.1"
+  },
+
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+} 
