@@ -1,177 +1,652 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Dictionary Editor | Rohingya Language Centre</title>
+    <title>
+        Dictionary Editor | Rohingya Language Centre
+    </title>
 
-    <link rel="stylesheet" href="admin.css">
+    <link
+        rel="stylesheet"
+        href="admin.css"
+    >
+
 </head>
+
 
 <body>
 
-    <div class="admin-container">
-
-        <aside class="sidebar">
-
-            <h2>Rohingya Language Centre</h2>
-
-            <ul>
-                <li>Dashboard</li>
-
-                <li class="active">
-                    Dictionary
-                </li>
-
-                <li>Users</li>
-
-                <li>Settings</li>
-            </ul>
-
-        </aside>
+<div class="admin-container">
 
 
-        <main class="content">
+    <!-- ==========================================
+         SIDEBAR
+         ========================================== -->
 
-            <h1>📖 Dictionary Editor</h1>
+    <aside class="sidebar">
+
+        <h2>
+            Rohingya Language Centre
+        </h2>
+
+        <ul>
+
+            <li>
+                Dashboard
+            </li>
+
+            <li class="active">
+                Dictionary
+            </li>
+
+            <li>
+                Users
+            </li>
+
+            <li>
+                Settings
+            </li>
+
+        </ul>
+
+    </aside>
 
 
-            <div class="tabs">
+    <!-- ==========================================
+         MAIN CONTENT
+         ========================================== -->
 
-                <button
-                    type="button"
-                    class="tab active">
-                    General
-                </button>
+    <main class="content">
 
-                <button
-                    type="button"
-                    class="tab">
-                    Meanings
-                </button>
+        <h1>
+            📖 Dictionary Editor
+        </h1>
 
-                <button
-                    type="button"
-                    class="tab">
-                    Relationships
-                </button>
 
-                <button
-                    type="button"
-                    class="tab">
-                    Media
-                </button>
+        <!-- ==========================================
+             TAB NAVIGATION
+             ========================================== -->
 
-                <button
-                    type="button"
-                    class="tab">
-                    History
-                </button>
+        <div class="tabs">
+
+            <button
+                type="button"
+                class="tab active"
+                id="generalTab"
+            >
+                General
+            </button>
+
+
+            <button
+                type="button"
+                class="tab"
+                id="meaningsTab"
+            >
+                Meanings
+            </button>
+
+
+            <button
+                type="button"
+                class="tab"
+                id="relationshipsTab"
+            >
+                Relationships
+            </button>
+
+
+            <button
+                type="button"
+                class="tab"
+                id="mediaTab"
+            >
+                Media
+            </button>
+
+
+            <button
+                type="button"
+                class="tab"
+                id="historyTab"
+            >
+                History
+            </button>
+
+        </div>
+
+
+        <!-- ==========================================
+             GENERAL
+             ========================================== -->
+
+        <section
+            id="generalContent"
+            class="tab-content"
+        >
+
+            <h2>
+                General Information
+            </h2>
+
+
+            <!-- English Word -->
+
+            <label for="englishWord">
+                English Word
+            </label>
+
+            <input
+                type="text"
+                id="englishWord"
+                placeholder="Enter English word"
+                autocomplete="off"
+            >
+
+
+            <!-- Part of Speech -->
+
+            <label for="partOfSpeech">
+                Part of Speech
+            </label>
+
+            <select id="partOfSpeech">
+
+                <option value="">
+                    Select part of speech
+                </option>
+
+                <option value="noun">
+                    Noun
+                </option>
+
+                <option value="verb">
+                    Verb
+                </option>
+
+                <option value="adjective">
+                    Adjective
+                </option>
+
+                <option value="adverb">
+                    Adverb
+                </option>
+
+                <option value="pronoun">
+                    Pronoun
+                </option>
+
+                <option value="preposition">
+                    Preposition
+                </option>
+
+                <option value="conjunction">
+                    Conjunction
+                </option>
+
+                <option value="interjection">
+                    Interjection
+                </option>
+
+                <option value="phrase">
+                    Phrase
+                </option>
+
+                <option value="idiom">
+                    Idiom
+                </option>
+
+                <option value="abbreviation">
+                    Abbreviation
+                </option>
+
+                <option value="other">
+                    Other
+                </option>
+
+            </select>
+
+
+            <!-- Category -->
+
+            <label for="category">
+                Category
+            </label>
+
+            <select id="category">
+
+                <option value="">
+                    Select category
+                </option>
+
+                <option value="1">
+                    Food
+                </option>
+
+                <option value="2">
+                    Animals
+                </option>
+
+                <option value="3">
+                    Education
+                </option>
+
+                <option value="4">
+                    Health
+                </option>
+
+                <option value="5">
+                    Science
+                </option>
+
+                <option value="6">
+                    Religion
+                </option>
+
+            </select>
+
+
+            <!-- IPA -->
+
+            <label for="ipa">
+                IPA Pronunciation
+            </label>
+
+            <input
+                type="text"
+                id="ipa"
+                placeholder="Optional IPA pronunciation"
+                autocomplete="off"
+            >
+
+
+            <!-- Status -->
+
+            <label for="status">
+                Status
+            </label>
+
+            <select id="status">
+
+                <option value="draft">
+                    Draft
+                </option>
+
+                <option value="pending_review">
+                    Pending Review
+                </option>
+
+                <option value="published">
+                    Published
+                </option>
+
+                <option value="archived">
+                    Archived
+                </option>
+
+            </select>
+
+
+            <!-- Save General -->
+
+            <button
+                type="button"
+                id="saveGeneral"
+            >
+                Save General Information
+            </button>
+
+        </section>
+
+
+        <!-- ==========================================
+             MEANINGS
+             ========================================== -->
+
+        <section
+            id="meaningsContent"
+            class="tab-content"
+            style="display: none;"
+        >
+
+            <h2>
+                Dictionary Meanings
+            </h2>
+
+
+            <!-- Current Word -->
+
+            <div class="meaning-word">
+
+                <strong>
+                    Current Word:
+                </strong>
+
+                <span id="meaningWordDisplay">
+                    No word selected
+                </span>
 
             </div>
 
 
-            <div id="editorContent">
+            <!-- Meaning Order -->
 
-                <h2>General Information</h2>
+            <label for="meaningOrder">
+                Meaning Order
+            </label>
 
-
-                <label for="englishWord">
-                    English Word
-                </label>
-
-                <input
-                    type="text"
-                    id="englishWord"
-                    placeholder="Enter English word">
-
-
-                <label for="category">
-                    Category
-                </label>
-
-                <select id="category">
-
-                    <option value="Food">
-                        Food
-                    </option>
-
-                    <option value="Animals">
-                        Animals
-                    </option>
-
-                    <option value="Education">
-                        Education
-                    </option>
-
-                    <option value="Health">
-                        Health
-                    </option>
-
-                    <option value="Science">
-                        Science
-                    </option>
-
-                    <option value="Religion">
-                        Religion
-                    </option>
-
-                    <option value="Nature">
-                        Nature
-                    </option>
-
-                    <option value="Technology">
-                        Technology
-                    </option>
-
-                    <option value="Society">
-                        Society
-                    </option>
-
-                    <option value="Culture">
-                        Culture
-                    </option>
-
-                </select>
+            <input
+                type="number"
+                id="meaningOrder"
+                value="1"
+                min="1"
+            >
 
 
-                <label for="status">
-                    Status
-                </label>
+            <!-- Meaning Part of Speech -->
 
-                <select id="status">
+            <label for="meaningPartOfSpeech">
+                Part of Speech
+            </label>
 
-                    <option value="draft">
-                        Draft
-                    </option>
+            <select id="meaningPartOfSpeech">
 
-                    <option value="published">
-                        Published
-                    </option>
+                <option value="">
+                    Select part of speech
+                </option>
 
-                </select>
+                <option value="noun">
+                    Noun
+                </option>
+
+                <option value="verb">
+                    Verb
+                </option>
+
+                <option value="adjective">
+                    Adjective
+                </option>
+
+                <option value="adverb">
+                    Adverb
+                </option>
+
+                <option value="pronoun">
+                    Pronoun
+                </option>
+
+                <option value="preposition">
+                    Preposition
+                </option>
+
+                <option value="conjunction">
+                    Conjunction
+                </option>
+
+                <option value="interjection">
+                    Interjection
+                </option>
+
+                <option value="phrase">
+                    Phrase
+                </option>
+
+                <option value="idiom">
+                    Idiom
+                </option>
+
+                <option value="abbreviation">
+                    Abbreviation
+                </option>
+
+                <option value="other">
+                    Other
+                </option>
+
+            </select>
 
 
-                <button
-                    type="button"
-                    id="saveGeneral">
+            <!-- English Definition -->
 
-                    Save General Information
+            <label for="englishDefinition">
+                English Definition
+            </label>
 
-                </button>
+            <textarea
+                id="englishDefinition"
+                rows="5"
+                placeholder="Enter the English definition"
+            ></textarea>
+
+
+            <!-- Hanifi Meaning -->
+
+            <label for="hanifiMeaning">
+                Hanifi Meaning
+            </label>
+
+            <textarea
+                id="hanifiMeaning"
+                rows="5"
+                placeholder="Enter the Rohingya meaning in Hanifi script"
+            ></textarea>
+
+
+            <!-- Save Meaning -->
+
+            <button
+                type="button"
+                id="saveMeaning"
+            >
+                Save Meaning
+            </button>
+
+
+            <!-- Existing Meanings -->
+
+            <div
+                id="meaningsList"
+                class="meanings-list"
+            >
+
+                <h3>
+                    Existing Meanings
+                </h3>
+
+                <p>
+                    No meanings loaded.
+                </p>
 
             </div>
 
-        </main>
-
-    </div>
+        </section>
 
 
-    <script src="admin.js"></script>
+        <!-- ==========================================
+             RELATIONSHIPS
+             ========================================== -->
+
+        <section
+            id="relationshipsContent"
+            class="tab-content"
+            style="display: none;"
+        >
+
+            <h2>
+                Word Relationships
+            </h2>
+
+
+            <p>
+                Manage relationships between this word
+                and other dictionary words.
+            </p>
+
+
+            <div class="relationship-section">
+
+                <h3>
+                    Synonyms
+                </h3>
+
+                <div id="synonymsList">
+
+                    <p>
+                        No synonyms added.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="relationship-section">
+
+                <h3>
+                    Antonyms
+                </h3>
+
+                <div id="antonymsList">
+
+                    <p>
+                        No antonyms added.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="relationship-section">
+
+                <h3>
+                    Related Words
+                </h3>
+
+                <div id="relatedWordsList">
+
+                    <p>
+                        No related words added.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="relationship-section">
+
+                <h3>
+                    Derived Words
+                </h3>
+
+                <div id="derivedWordsList">
+
+                    <p>
+                        No derived words added.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             MEDIA
+             ========================================== -->
+
+        <section
+            id="mediaContent"
+            class="tab-content"
+            style="display: none;"
+        >
+
+            <h2>
+                Media
+            </h2>
+
+
+            <div class="media-section">
+
+                <h3>
+                    Images
+                </h3>
+
+                <div id="imagesList">
+
+                    <p>
+                        No images added.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="media-section">
+
+                <h3>
+                    Audio
+                </h3>
+
+                <div id="audioList">
+
+                    <p>
+                        No audio added.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             HISTORY
+             ========================================== -->
+
+        <section
+            id="historyContent"
+            class="tab-content"
+            style="display: none;"
+        >
+
+            <h2>
+                Word History
+            </h2>
+
+
+            <div
+                id="historyList"
+                class="history-list"
+            >
+
+                <p>
+                    No history records loaded.
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<script src="admin.js"></script>
 
 </body>
 

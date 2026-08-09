@@ -1,28 +1,45 @@
  // ==========================================
 // Rohingya Language Centre
-// Dictionary Routes
+// Dictionary Admin Routes
 // ==========================================
 
 const express = require("express");
+
 const router = express.Router();
 
-const dictionaryController = require("./dictionary.controller");
+const dictionaryController =
+    require("./dictionary.controller");
+
 
 // ==========================================
-// Dictionary Routes
+// Get All Dictionary Words
 // ==========================================
 
-// Get all dictionary words
 router.get(
     "/words",
     dictionaryController.getAllWords
 );
 
-// Create a new dictionary word
+
+// ==========================================
+// Create New Dictionary Word
+// ==========================================
+
 router.post(
     "/add",
     dictionaryController.addDictionary
 );
+
+
+// ==========================================
+// Add Meaning to Existing Dictionary Word
+// ==========================================
+
+router.post(
+    "/:wordId/meanings",
+    dictionaryController.addMeaning
+);
+
 
 // ==========================================
 

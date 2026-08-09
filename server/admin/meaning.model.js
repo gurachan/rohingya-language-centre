@@ -1,4 +1,14 @@
- const exampleModel = require("./example.model");
+ // ==========================================
+// Rohingya Language Centre
+// Dictionary Meaning Model
+// ==========================================
+
+const exampleModel = require("./example.model");
+
+
+// ==========================================
+// Add Meaning
+// ==========================================
 
 async function addMeaning(connection, wordId, meaning) {
 
@@ -24,9 +34,16 @@ async function addMeaning(connection, wordId, meaning) {
         ]
     );
 
+
     const meaningId = result.insertId;
 
-    if (meaning.examples && meaning.examples.length > 0) {
+
+    // Add examples if provided
+
+    if (
+        meaning.examples &&
+        meaning.examples.length > 0
+    ) {
 
         for (const example of meaning.examples) {
 
@@ -40,10 +57,53 @@ async function addMeaning(connection, wordId, meaning) {
 
     }
 
+
     return meaningId;
 
 }
 
+
+// ==========================================
+// Get Meanings By Word ID
+// ==========================================
+
+async function getMeaningsByWordId(
+    connection,
+    wordId
+) {
+
+    const [rows] = await connection.query(
+        `
+        SELECT
+            id,
+            word_id,
+            meaning_order,
+            part_of_speech,
+            english_definition,
+            hanifi_meaning,
+            created_at,
+            updated_at
+        FROM dictionary_meanings
+        WHERE word_id = ?
+        ORDER BY meaning_order ASC, id ASC
+        `,
+        [wordId]
+    );
+
+
+    return rows;
+
+}
+
+
+// ==========================================
+// Export
+// ==========================================
+
 module.exports = {
-    addMeaning
+
+    addMeaning,
+
+    getMeaningsByWordId
+
 };
