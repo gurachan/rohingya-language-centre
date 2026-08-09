@@ -38,13 +38,17 @@ async function addWord(connection, word) {
     const [result] = await connection.query(
         `
         INSERT INTO dictionary_words
-        (
-            english_word,
-            slug,
-            part_of_speech,
-            category_id,
-            status
-        )
+(
+    english_word,
+    slug,
+    ipa_uk,
+    ipa_us,
+    part_of_speech,
+    category_id,
+    status
+)
+VALUES
+(?,?,?,?,?,?,?)
         VALUES
         (?, ?, ?, ?, ?)
         `,

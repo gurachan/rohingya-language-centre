@@ -30,6 +30,14 @@ router.post(
     dictionaryController.addDictionary
 );
 
+// ==========================================
+// Get Meanings By Dictionary Word ID
+// ==========================================
+
+router.get(
+    "/:wordId/meanings",
+    dictionaryController.getMeanings
+);
 
 // ==========================================
 // Add Meaning to Existing Dictionary Word

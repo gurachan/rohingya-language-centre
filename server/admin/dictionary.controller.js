@@ -289,7 +289,76 @@ async function addMeaning(req, res) {
 // ==========================================
 
 module.exports = {
+
     getAllWords,
+
     addDictionary,
-    addMeaning
+
+    addMeaning,
+
+    getMeanings
+
 };
+// ==========================================
+// Get Meanings By Word ID
+// ==========================================
+
+async function getMeanings(req, res) {
+
+    try {
+
+        const wordId = Number(req.params.wordId);
+
+
+        if (!wordId) {
+
+            return res.status(400).json({
+                success:false,
+                message:"Invalid word ID."
+            });
+
+        }
+
+
+        const [rows] = await db.query(
+            `
+            SELECT
+                id,
+                meaning_order,
+                part_of_speech,
+                english_definition,
+                hanifi_meaning
+            FROM dictionary_meanings
+            WHERE word_id = ?
+            ORDER BY meaning_order ASC
+            `,
+            [wordId]
+        );
+
+
+        res.json({
+
+            success:true,
+            meanings:rows
+
+        });
+
+
+    } catch(error){
+
+        console.error(
+            "GET MEANINGS ERROR:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success:false,
+            message:"Failed to load meanings."
+
+        });
+
+    }
+
+}
