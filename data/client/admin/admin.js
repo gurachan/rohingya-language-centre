@@ -189,7 +189,7 @@ function initializeGeneralForm() {
 // Save Dictionary Word
 // ==========================================
 
-async function saveWord() {
+
 
     const englishWordElement =
         document.getElementById("englishWord");
@@ -200,20 +200,24 @@ async function saveWord() {
     const categoryElement =
         document.getElementById("category");
 
-    const ipaElement =
-        document.getElementById("ipa");
+    const ipaUKElement =
+    document.getElementById("ipaUK");
 
+const ipaUSElement =
+    document.getElementById("ipaUS");
     const statusElement =
         document.getElementById("status");
 
-
+},
     if (
-        !englishWordElement ||
-        !partOfSpeechElement ||
-        !categoryElement ||
-        !ipaElement ||
-        !statusElement
-    ) {
+    !englishWordElement ||
+    !partOfSpeechElement ||
+    !categoryElement ||
+    !ipaUKElement ||
+    !ipaUSElement ||
+    !statusElement
+)
+{
 
         alert(
             "Dictionary form is incomplete."
@@ -233,12 +237,14 @@ async function saveWord() {
     const categoryId =
         categoryElement.value;
 
-    const ipa =
-        ipaElement.value.trim();
+   const ipaUK =
+    ipaUKElement.value.trim();
 
-    const status =
-        statusElement.value;
+const ipaUS =
+    ipaUSElement.value.trim();
 
+const status =
+    statusElement.value;
 
     // ==========================================
     // Validation
@@ -281,19 +287,21 @@ async function saveWord() {
     // Prepare Data
     // ==========================================
 
-    const dictionaryData = {
+   const dictionaryData = {
 
-        english_word: englishWord,
+    english_word: englishWord,
 
-        part_of_speech: partOfSpeech,
+    part_of_speech: partOfSpeech,
 
-        category_id: Number(categoryId),
+    category_id: Number(categoryId),
 
-        ipa: ipa || null,
+    ipa_uk: ipaUK || null,
 
-        status: status
+    ipa_us: ipaUS || null,
 
-    };
+    status: status
+
+};
 
 
     // ==========================================
@@ -319,8 +327,7 @@ async function saveWord() {
                         )
                 }
             );
-
-
+        
         const result =
             await response.json();
 
@@ -384,8 +391,6 @@ async function saveWord() {
 
     }
 
-}
-
 
 // ==========================================
 // Clear General Form
@@ -402,9 +407,15 @@ function clearGeneralForm() {
     const category =
         document.getElementById("category");
 
-    const ipa =
-        document.getElementById("ipa");
+    const ipaUK = document
+    .getElementById("ipaUK")
+    .value
+    .trim();
 
+const ipaUS = document
+    .getElementById("ipaUS")
+    .value
+    .trim();
     const status =
         document.getElementById("status");
 
