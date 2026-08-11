@@ -1,23 +1,35 @@
- // ==========================================
+// ============================================================
 // Rohingya Language Centre
-// Dictionary Admin Panel
-// ==========================================
+// Admin Dictionary JavaScript
+// ============================================================
+
+"use strict";
+
+// ============================================================
+// API
+// ============================================================
 
 const API = "/api/admin/dictionary";
 
-
-// ==========================================
-// Current Dictionary Word
-// ==========================================
+// ============================================================
+// Global State
+// ============================================================
 
 let currentWordId = null;
 
-
-// ==========================================
-// Initialize
-// ==========================================
+// ============================================================
+// DOM READY
+// ============================================================
 
 document.addEventListener("DOMContentLoaded", () => {
+    initializeAdminDictionary();
+});
+
+// ============================================================
+// Main Initialization
+// ============================================================
+
+function initializeAdminDictionary() {
 
     initializeTabs();
 
@@ -25,18 +37,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initializeMeaningForm();
 
-    updateMeaningWordDisplay();
+    loadDictionaryWords();
 
-});
+}
 
-
-// ==========================================
-// Tab System
-// ==========================================
+// ============================================================
+// TAB MANAGEMENT
+// ============================================================
 
 function initializeTabs() {
 
-    const tabs = [
+    const tabButtons = [
         {
             button: "generalTab",
             content: "generalContent"
@@ -59,8 +70,7 @@ function initializeTabs() {
         }
     ];
 
-
-    tabs.forEach((tab) => {
+    tabButtons.forEach((tab) => {
 
         const button =
             document.getElementById(tab.button);
@@ -68,7 +78,6 @@ function initializeTabs() {
         if (!button) {
             return;
         }
-
 
         button.addEventListener("click", () => {
 
@@ -81,16 +90,22 @@ function initializeTabs() {
 
     });
 
+    // Show General tab first
+
+    showTab(
+        "generalTab",
+        "generalContent"
+    );
+
 }
 
-
-// ==========================================
-// Show Tab
-// ==========================================
+// ============================================================
+// SHOW TAB
+// ============================================================
 
 function showTab(buttonId, contentId) {
 
-    const tabs = [
+    const tabIds = [
         "generalTab",
         "meaningsTab",
         "relationshipsTab",
@@ -98,8 +113,7 @@ function showTab(buttonId, contentId) {
         "historyTab"
     ];
 
-
-    const contents = [
+    const contentIds = [
         "generalContent",
         "meaningsContent",
         "relationshipsContent",
@@ -107,8 +121,9 @@ function showTab(buttonId, contentId) {
         "historyContent"
     ];
 
+    // Remove active state
 
-    tabs.forEach((id) => {
+    tabIds.forEach((id) => {
 
         const button =
             document.getElementById(id);
@@ -119,8 +134,9 @@ function showTab(buttonId, contentId) {
 
     });
 
+    // Hide all content
 
-    contents.forEach((id) => {
+    contentIds.forEach((id) => {
 
         const content =
             document.getElementById(id);
@@ -131,51 +147,51 @@ function showTab(buttonId, contentId) {
 
     });
 
+    // Activate selected button
 
     const activeButton =
         document.getElementById(buttonId);
-
-    const activeContent =
-        document.getElementById(contentId);
-
 
     if (activeButton) {
         activeButton.classList.add("active");
     }
 
+    // Show selected content
+
+    const activeContent =
+        document.getElementById(contentId);
 
     if (activeContent) {
         activeContent.style.display = "block";
     }
 
+    // Load meanings when opening meanings tab
 
-    if (contentId === "meaningsContent") {
+    if (
+        contentId === "meaningsContent" &&
+        currentWordId
+    ) {
 
         updateMeaningWordDisplay();
 
-        if (currentWordId) {
-            loadMeanings(currentWordId);
-        }
+        loadMeanings(currentWordId);
 
     }
 
 }
 
-
-// ==========================================
-// General Form
-// ==========================================
+// ============================================================
+// GENERAL FORM
+// ============================================================
 
 function initializeGeneralForm() {
 
     const saveButton =
         document.getElementById("saveGeneral");
 
-
     if (!saveButton) {
         return;
     }
-
 
     saveButton.addEventListener(
         "click",
@@ -184,12 +200,11 @@ function initializeGeneralForm() {
 
 }
 
+// ============================================================
+// SAVE DICTIONARY WORD
+// ============================================================
 
-// ==========================================
-// Save Dictionary Word
-// ==========================================
-
-
+async function saveWord() {
 
     const englishWordElement =
         document.getElementById("englishWord");
@@ -201,23 +216,30 @@ function initializeGeneralForm() {
         document.getElementById("category");
 
     const ipaUKElement =
-    document.getElementById("ipaUK");
+        document.getElementById("ipaUK");
 
-const ipaUSElement =
-    document.getElementById("ipaUS");
+    const ipaUSElement =
+        document.getElementById("ipaUS");
+
     const statusElement =
         document.getElementById("status");
 
-},
+    // --------------------------------------------------------
+    // Check required DOM elements
+    // --------------------------------------------------------
+
     if (
-    !englishWordElement ||
-    !partOfSpeechElement ||
-    !categoryElement ||
-    !ipaUKElement ||
-    !ipaUSElement ||
-    !statusElement
-)
-{
+        !englishWordElement ||
+        !partOfSpeechElement ||
+        !categoryElement ||
+        !ipaUKElement ||
+        !ipaUSElement ||
+        !statusElement
+    ) {
+
+        console.error(
+            "Dictionary form is missing one or more required elements."
+        );
 
         alert(
             "Dictionary form is incomplete."
@@ -227,6 +249,9 @@ const ipaUSElement =
 
     }
 
+    // --------------------------------------------------------
+    // Read values
+    // --------------------------------------------------------
 
     const englishWord =
         englishWordElement.value.trim();
@@ -237,18 +262,18 @@ const ipaUSElement =
     const categoryId =
         categoryElement.value;
 
-   const ipaUK =
-    ipaUKElement.value.trim();
+    const ipaUK =
+        ipaUKElement.value.trim();
 
-const ipaUS =
-    ipaUSElement.value.trim();
+    const ipaUS =
+        ipaUSElement.value.trim();
 
-const status =
-    statusElement.value;
+    const status =
+        statusElement.value;
 
-    // ==========================================
+    // --------------------------------------------------------
     // Validation
-    // ==========================================
+    // --------------------------------------------------------
 
     if (!englishWord) {
 
@@ -256,10 +281,11 @@ const status =
             "Please enter an English word."
         );
 
+        englishWordElement.focus();
+
         return;
 
     }
-
 
     if (!partOfSpeech) {
 
@@ -267,10 +293,11 @@ const status =
             "Please select a part of speech."
         );
 
+        partOfSpeechElement.focus();
+
         return;
 
     }
-
 
     if (!categoryId) {
 
@@ -278,41 +305,58 @@ const status =
             "Please select a category."
         );
 
+        categoryElement.focus();
+
         return;
 
     }
 
+    if (!status) {
 
-    // ==========================================
-    // Prepare Data
-    // ==========================================
+        alert(
+            "Please select a status."
+        );
 
-   const dictionaryData = {
+        statusElement.focus();
 
-    english_word: englishWord,
+        return;
 
-    part_of_speech: partOfSpeech,
+    }
 
-    category_id: Number(categoryId),
+    // --------------------------------------------------------
+    // Prepare request data
+    // --------------------------------------------------------
 
-    ipa_uk: ipaUK || null,
+    const dictionaryData = {
 
-    ipa_us: ipaUS || null,
+        english_word: englishWord,
 
-    status: status
+        part_of_speech: partOfSpeech,
 
-};
+        category_id: Number(categoryId),
 
+        ipa_uk: ipaUK || null,
 
-    // ==========================================
-    // Send Request
-    // ==========================================
+        ipa_us: ipaUS || null,
+
+        status: status
+
+    };
+
+    console.log(
+        "Saving dictionary word:",
+        dictionaryData
+    );
+
+    // --------------------------------------------------------
+    // Send request
+    // --------------------------------------------------------
 
     try {
 
         const response =
             await fetch(
-                API + "/add",
+                `${API}/add`,
                 {
                     method: "POST",
 
@@ -327,76 +371,296 @@ const status =
                         )
                 }
             );
-        
+
         const result =
             await response.json();
-
 
         console.log(
             "Dictionary server response:",
             result
         );
 
+        // ----------------------------------------------------
+        // Handle server error
+        // ----------------------------------------------------
 
-        // ==========================================
-        // Success
-        // ==========================================
+        if (!response.ok || !result.success) {
 
-        if (
-            response.ok &&
-            result.success
-        ) {
-
-            currentWordId =
-                Number(result.wordId);
-
-
-            alert(
-                "Dictionary word saved successfully."
+            throw new Error(
+                result.message ||
+                "Failed to save dictionary word."
             );
-
-
-            clearGeneralForm();
-
-
-            updateMeaningWordDisplay();
-
-
-            return;
 
         }
 
+        // ----------------------------------------------------
+        // Save current word ID
+        // ----------------------------------------------------
 
-        // ==========================================
-        // Server Error
-        // ==========================================
+        currentWordId =
+            result.wordId ||
+            result.word_id ||
+            result.dictionaryId ||
+            result.dictionary_id ||
+            result.id ||
+            null;
+
+        // ----------------------------------------------------
+        // Try nested word object if necessary
+        // ----------------------------------------------------
+
+        if (
+            !currentWordId &&
+            result.word &&
+            result.word.id
+        ) {
+
+            currentWordId =
+                result.word.id;
+
+        }
+
+        if (
+            !currentWordId &&
+            result.dictionary &&
+            result.dictionary.id
+        ) {
+
+            currentWordId =
+                result.dictionary.id;
+
+        }
+
+        // ----------------------------------------------------
+        // Success
+        // ----------------------------------------------------
 
         alert(
-            result.message ||
-            "Unable to save dictionary word."
+            "Dictionary word saved successfully."
         );
 
+        console.log(
+            "Current Word ID:",
+            currentWordId
+        );
+
+        // ----------------------------------------------------
+        // Refresh dictionary word list
+        // ----------------------------------------------------
+
+        await loadDictionaryWords();
+
+        // ----------------------------------------------------
+        // Update meaning display
+        // ----------------------------------------------------
+
+        updateMeaningWordDisplay();
 
     } catch (error) {
 
         console.error(
-            "Dictionary save error:",
+            "Save dictionary word error:",
             error
         );
 
-
         alert(
-            "Cannot connect to the dictionary server."
+            error.message ||
+            "Unable to save dictionary word."
         );
 
     }
 
+}
 
-// ==========================================
-// Clear General Form
-// ==========================================
+// ============================================================
+// LOAD DICTIONARY WORDS
+// ============================================================
 
-function clearGeneralForm() {
+async function loadDictionaryWords() {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API}/words`
+            );
+
+        const result =
+            await response.json();
+
+        console.log(
+            "Dictionary words response:",
+            result
+        );
+
+        if (!response.ok || !result.success) {
+
+            throw new Error(
+                result.message ||
+                "Failed to load dictionary words."
+            );
+
+        }
+
+        renderDictionaryWords(
+            result.words || []
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Load dictionary words error:",
+            error
+        );
+
+        renderDictionaryWords([]);
+
+    }
+
+}
+
+// ============================================================
+// RENDER DICTIONARY WORDS
+// ============================================================
+
+function renderDictionaryWords(words) {
+
+    /*
+     * This function supports several possible containers.
+     *
+     * If your dictionary.html contains one of these IDs,
+     * the list will be rendered automatically.
+     */
+
+    const possibleContainers = [
+        "dictionaryWords",
+        "wordsList",
+        "dictionaryList",
+        "wordList"
+    ];
+
+    let container = null;
+
+    for (
+        let i = 0;
+        i < possibleContainers.length;
+        i++
+    ) {
+
+        const element =
+            document.getElementById(
+                possibleContainers[i]
+            );
+
+        if (element) {
+
+            container = element;
+
+            break;
+
+        }
+
+    }
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = "";
+
+    if (!Array.isArray(words) || words.length === 0) {
+
+        container.innerHTML =
+            "<p>No dictionary words found.</p>";
+
+        return;
+
+    }
+
+    words.forEach((word) => {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "dictionary-word-item";
+
+        const wordId =
+            word.id;
+
+        const englishWord =
+            word.english_word || "";
+
+        const partOfSpeech =
+            word.part_of_speech || "";
+
+        const ipaUK =
+            word.ipa_uk || "";
+
+        const ipaUS =
+            word.ipa_us || "";
+
+        item.innerHTML = `
+
+            <div class="dictionary-word-name">
+                ${escapeHtml(englishWord)}
+            </div>
+
+            <div>
+                <strong>Part of Speech:</strong>
+                ${escapeHtml(partOfSpeech)}
+            </div>
+
+            <div>
+                <strong>British IPA:</strong>
+                ${escapeHtml(ipaUK || "—")}
+            </div>
+
+            <div>
+                <strong>American IPA:</strong>
+                ${escapeHtml(ipaUS || "—")}
+            </div>
+
+        `;
+
+        item.addEventListener(
+            "click",
+            () => {
+
+                selectDictionaryWord(
+                    word
+                );
+
+            }
+        );
+
+        container.appendChild(item);
+
+    });
+
+}
+
+// ============================================================
+// SELECT DICTIONARY WORD
+// ============================================================
+
+function selectDictionaryWord(word) {
+
+    if (!word || !word.id) {
+        return;
+    }
+
+    currentWordId =
+        word.id;
+
+    console.log(
+        "Selected dictionary word:",
+        word
+    );
+
+    // --------------------------------------------------------
+    // General form
+    // --------------------------------------------------------
 
     const englishWord =
         document.getElementById("englishWord");
@@ -407,60 +671,71 @@ function clearGeneralForm() {
     const category =
         document.getElementById("category");
 
-    const ipaUK = document
-    .getElementById("ipaUK")
-    .value
-    .trim();
+    const ipaUK =
+        document.getElementById("ipaUK");
 
-const ipaUS = document
-    .getElementById("ipaUS")
-    .value
-    .trim();
+    const ipaUS =
+        document.getElementById("ipaUS");
+
     const status =
         document.getElementById("status");
 
-
     if (englishWord) {
-        englishWord.value = "";
+        englishWord.value =
+            word.english_word || "";
     }
-
 
     if (partOfSpeech) {
-        partOfSpeech.value = "";
+        partOfSpeech.value =
+            word.part_of_speech || "";
     }
-
 
     if (category) {
-        category.value = "";
+        category.value =
+            word.category_id || "";
     }
 
-
-    if (ipa) {
-        ipa.value = "";
+    if (ipaUK) {
+        ipaUK.value =
+            word.ipa_uk || "";
     }
 
+    if (ipaUS) {
+        ipaUS.value =
+            word.ipa_us || "";
+    }
 
     if (status) {
-        status.value = "draft";
+        status.value =
+            word.status || "draft";
     }
+
+    // --------------------------------------------------------
+    // Update meaning word
+    // --------------------------------------------------------
+
+    updateMeaningWordDisplay();
+
+    // --------------------------------------------------------
+    // Load meanings
+    // --------------------------------------------------------
+
+    loadMeanings(currentWordId);
 
 }
 
-
-// ==========================================
-// Meaning Form
-// ==========================================
+// ============================================================
+// MEANING FORM
+// ============================================================
 
 function initializeMeaningForm() {
 
     const saveButton =
         document.getElementById("saveMeaning");
 
-
     if (!saveButton) {
         return;
     }
-
 
     saveButton.addEventListener(
         "click",
@@ -469,75 +744,21 @@ function initializeMeaningForm() {
 
 }
 
-
-// ==========================================
-// Update Current Word Display
-// ==========================================
-
-function updateMeaningWordDisplay() {
-
-    const display =
-        document.getElementById(
-            "meaningWordDisplay"
-        );
-
-
-    if (!display) {
-        return;
-    }
-
-
-    const englishWordElement =
-        document.getElementById(
-            "englishWord"
-        );
-
-
-    if (
-        englishWordElement &&
-        englishWordElement.value.trim()
-    ) {
-
-        display.textContent =
-            englishWordElement.value.trim();
-
-        return;
-
-    }
-
-
-    if (currentWordId) {
-
-        display.textContent =
-            "Word ID: " + currentWordId;
-
-        return;
-
-    }
-
-
-    display.textContent =
-        "No word selected";
-
-}
-
-
-// ==========================================
-// Save Meaning
-// ==========================================
+// ============================================================
+// SAVE MEANING
+// ============================================================
 
 async function saveMeaning() {
 
     if (!currentWordId) {
 
         alert(
-            "Please save the dictionary word first."
+            "Please select or create a dictionary word first."
         );
 
         return;
 
     }
-
 
     const meaningOrderElement =
         document.getElementById(
@@ -559,7 +780,6 @@ async function saveMeaning() {
             "hanifiMeaning"
         );
 
-
     if (
         !meaningOrderElement ||
         !partOfSpeechElement ||
@@ -575,28 +795,23 @@ async function saveMeaning() {
 
     }
 
-
     const meaningOrder =
         Number(
             meaningOrderElement.value
         );
 
-
     const partOfSpeech =
         partOfSpeechElement.value;
-
 
     const englishDefinition =
         englishDefinitionElement.value.trim();
 
-
     const hanifiMeaning =
         hanifiMeaningElement.value.trim();
 
-
-    // ==========================================
+    // --------------------------------------------------------
     // Validation
-    // ==========================================
+    // --------------------------------------------------------
 
     if (
         !meaningOrder ||
@@ -607,21 +822,23 @@ async function saveMeaning() {
             "Please enter a valid meaning order."
         );
 
+        meaningOrderElement.focus();
+
         return;
 
     }
-
 
     if (!partOfSpeech) {
 
         alert(
-            "Please select a part of speech."
+            "Please select the meaning part of speech."
         );
+
+        partOfSpeechElement.focus();
 
         return;
 
     }
-
 
     if (!englishDefinition) {
 
@@ -629,10 +846,11 @@ async function saveMeaning() {
             "Please enter the English definition."
         );
 
+        englishDefinitionElement.focus();
+
         return;
 
     }
-
 
     if (!hanifiMeaning) {
 
@@ -640,14 +858,15 @@ async function saveMeaning() {
             "Please enter the Hanifi meaning."
         );
 
+        hanifiMeaningElement.focus();
+
         return;
 
     }
 
-
-    // ==========================================
-    // Prepare Data
-    // ==========================================
+    // --------------------------------------------------------
+    // Prepare data
+    // --------------------------------------------------------
 
     const meaningData = {
 
@@ -667,19 +886,20 @@ async function saveMeaning() {
 
     };
 
+    console.log(
+        "Saving dictionary meaning:",
+        meaningData
+    );
 
-    // ==========================================
-    // Send Request
-    // ==========================================
+    // --------------------------------------------------------
+    // Send request
+    // --------------------------------------------------------
 
     try {
 
         const response =
             await fetch(
-                API +
-                "/" +
-                currentWordId +
-                "/meanings",
+                `${API}/${currentWordId}/meanings`,
                 {
                     method: "POST",
 
@@ -695,74 +915,216 @@ async function saveMeaning() {
                 }
             );
 
-
         const result =
             await response.json();
-
 
         console.log(
             "Meaning server response:",
             result
         );
 
-
-        // ==========================================
-        // Success
-        // ==========================================
-
         if (
-            response.ok &&
-            result.success
+            !response.ok ||
+            !result.success
         ) {
 
-            alert(
-                "Dictionary meaning saved successfully."
+            throw new Error(
+                result.message ||
+                "Failed to save dictionary meaning."
             );
-
-
-            clearMeaningForm();
-
-
-            await loadMeanings(
-                currentWordId
-            );
-
-
-            return;
 
         }
 
-
-        // ==========================================
-        // Server Error
-        // ==========================================
-
         alert(
-            result.message ||
-            "Unable to save dictionary meaning."
+            "Dictionary meaning saved successfully."
         );
 
+        clearMeaningForm();
+
+        await loadMeanings(
+            currentWordId
+        );
 
     } catch (error) {
 
         console.error(
-            "Meaning save error:",
+            "Save meaning error:",
             error
         );
 
-
         alert(
-            "Cannot connect to the dictionary server."
+            error.message ||
+            "Unable to save dictionary meaning."
         );
 
     }
 
 }
 
+// ============================================================
+// LOAD MEANINGS
+// ============================================================
 
-// ==========================================
-// Clear Meaning Form
-// ==========================================
+async function loadMeanings(wordId) {
+
+    const list =
+        document.getElementById(
+            "meaningsList"
+        );
+
+    if (!list) {
+        return;
+    }
+
+    if (!wordId) {
+
+        list.innerHTML =
+            "<p>No word selected.</p>";
+
+        return;
+
+    }
+
+    list.innerHTML =
+        "<p>Loading meanings...</p>";
+
+    try {
+
+        const response =
+            await fetch(
+                `${API}/${wordId}/meanings`
+            );
+
+        const result =
+            await response.json();
+
+        console.log(
+            "Meanings response:",
+            result
+        );
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ||
+                "Failed to load meanings."
+            );
+
+        }
+
+        const meanings =
+            result.meanings || [];
+
+        renderMeanings(
+            meanings
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Load meanings error:",
+            error
+        );
+
+        list.innerHTML =
+            "<h3>Existing Meanings</h3>" +
+            "<p>Unable to load meanings.</p>";
+
+    }
+
+}
+
+// ============================================================
+// RENDER MEANINGS
+// ============================================================
+
+function renderMeanings(meanings) {
+
+    const list =
+        document.getElementById(
+            "meaningsList"
+        );
+
+    if (!list) {
+        return;
+    }
+
+    list.innerHTML =
+        "<h3>Existing Meanings</h3>";
+
+    if (
+        !Array.isArray(meanings) ||
+        meanings.length === 0
+    ) {
+
+        list.innerHTML +=
+            "<p>No meanings added yet.</p>";
+
+        return;
+
+    }
+
+    meanings.forEach((meaning) => {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "meaning-item";
+
+        item.innerHTML = `
+
+            <strong>
+                Meaning
+                ${escapeHtml(
+                    meaning.meaning_order
+                )}
+            </strong>
+
+            <p>
+                <strong>
+                    Part of Speech:
+                </strong>
+
+                ${escapeHtml(
+                    meaning.part_of_speech
+                )}
+            </p>
+
+            <p>
+                <strong>
+                    English:
+                </strong>
+
+                ${escapeHtml(
+                    meaning.english_definition
+                )}
+            </p>
+
+            <p>
+                <strong>
+                    Hanifi:
+                </strong>
+
+                ${escapeHtml(
+                    meaning.hanifi_meaning
+                )}
+            </p>
+
+        `;
+
+        list.appendChild(item);
+
+    });
+
+}
+
+// ============================================================
+// CLEAR MEANING FORM
+// ============================================================
 
 function clearMeaningForm() {
 
@@ -786,21 +1148,17 @@ function clearMeaningForm() {
             "hanifiMeaning"
         );
 
-
     if (meaningOrder) {
         meaningOrder.value = "1";
     }
-
 
     if (partOfSpeech) {
         partOfSpeech.value = "";
     }
 
-
     if (englishDefinition) {
         englishDefinition.value = "";
     }
-
 
     if (hanifiMeaning) {
         hanifiMeaning.value = "";
@@ -808,164 +1166,149 @@ function clearMeaningForm() {
 
 }
 
+// ============================================================
+// UPDATE CURRENT WORD DISPLAY
+// ============================================================
 
-// ==========================================
-// Load Existing Meanings
-// ==========================================
+function updateMeaningWordDisplay() {
 
-async function loadMeanings(wordId) {
-
-    const list =
+    const display =
         document.getElementById(
-            "meaningsList"
+            "meaningWordDisplay"
         );
 
-
-    if (!list) {
+    if (!display) {
         return;
     }
 
-
-    list.innerHTML =
-        "<h3>Existing Meanings</h3>" +
-        "<p>Loading meanings...</p>";
-
-
-    try {
-
-        const response =
-            await fetch(
-                API +
-                "/words/" +
-                wordId +
-                "/meanings"
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Failed to load meanings."
-            );
-
-        }
-
-
-        const result =
-            await response.json();
-
-
-        if (
-            !result.success ||
-            !Array.isArray(result.data)
-        ) {
-
-            list.innerHTML =
-                "<h3>Existing Meanings</h3>" +
-                "<p>No meanings loaded.</p>";
-
-            return;
-
-        }
-
-
-        if (result.data.length === 0) {
-
-            list.innerHTML =
-                "<h3>Existing Meanings</h3>" +
-                "<p>No meanings added yet.</p>";
-
-            return;
-
-        }
-
-
-        list.innerHTML =
-            "<h3>Existing Meanings</h3>";
-
-
-        result.data.forEach(
-            (meaning) => {
-
-                const item =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                item.className =
-                    "meaning-item";
-
-
-                item.innerHTML = `
-                    <strong>
-                        Meaning ${meaning.meaning_order}
-                    </strong>
-
-                    <p>
-                        <strong>Part of Speech:</strong>
-                        ${escapeHtml(
-                            meaning.part_of_speech
-                        )}
-                    </p>
-
-                    <p>
-                        <strong>English:</strong>
-                        ${escapeHtml(
-                            meaning.english_definition
-                        )}
-                    </p>
-
-                    <p>
-                        <strong>Hanifi:</strong>
-                        ${escapeHtml(
-                            meaning.hanifi_meaning
-                        )}
-                    </p>
-                `;
-
-
-                list.appendChild(item);
-
-            }
+    const englishWord =
+        document.getElementById(
+            "englishWord"
         );
 
+    if (
+        englishWord &&
+        englishWord.value.trim()
+    ) {
 
-    } catch (error) {
+        display.textContent =
+            englishWord.value.trim();
 
-        console.error(
-            "Load meanings error:",
-            error
-        );
-
-
-        list.innerHTML =
-            "<h3>Existing Meanings</h3>" +
-            "<p>Unable to load meanings.</p>";
+        return;
 
     }
 
+    display.textContent =
+        "No word selected";
+
 }
 
+// ============================================================
+// CLEAR GENERAL FORM
+// ============================================================
 
-// ==========================================
-// Escape HTML
-// ==========================================
+function clearGeneralForm() {
+
+    const englishWord =
+        document.getElementById(
+            "englishWord"
+        );
+
+    const partOfSpeech =
+        document.getElementById(
+            "partOfSpeech"
+        );
+
+    const category =
+        document.getElementById(
+            "category"
+        );
+
+    const ipaUK =
+        document.getElementById(
+            "ipaUK"
+        );
+
+    const ipaUS =
+        document.getElementById(
+            "ipaUS"
+        );
+
+    const status =
+        document.getElementById(
+            "status"
+        );
+
+    if (englishWord) {
+        englishWord.value = "";
+    }
+
+    if (partOfSpeech) {
+        partOfSpeech.value = "";
+    }
+
+    if (category) {
+        category.value = "";
+    }
+
+    if (ipaUK) {
+        ipaUK.value = "";
+    }
+
+    if (ipaUS) {
+        ipaUS.value = "";
+    }
+
+    if (status) {
+        status.value = "draft";
+    }
+
+    currentWordId = null;
+
+    updateMeaningWordDisplay();
+
+}
+
+// ============================================================
+// HTML ESCAPE
+// ============================================================
 
 function escapeHtml(value) {
 
-    if (value === null ||
-        value === undefined) {
+    if (
+        value === null ||
+        value === undefined
+    ) {
 
         return "";
 
     }
 
-
     return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
 }
