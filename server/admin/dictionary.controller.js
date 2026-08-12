@@ -45,29 +45,56 @@ async function getAllWords(req, res) {
 
 async function addDictionary(req, res) {
 
+    const {
+        english_word,
+        ipa_uk,
+        ipa_us,
+        part_of_speech,
+        category_id,
+        status,
+        meanings
+    } = req.body;
+
+    // ==========================================
+    // Validation
+    // ==========================================
+
+    if (!english_word || !english_word.trim()) {
+        return res.status(400).json({
+            success: false,
+            message: "English word is required."
+        });
+    }
+
     const connection = await db.getConnection();
 
     try {
 
         await connection.beginTransaction();
 
-
+        // ==========================================
         // Create dictionary word
+        // ==========================================
 
         const wordId = await dictionaryModel.addWord(
             connection,
-            req.body
+            {
+                english_word,
+                ipa_uk,
+                ipa_us,
+                part_of_speech,
+                category_id,
+                status
+            }
         );
 
-
+        // ==========================================
         // Create meanings
+        // ==========================================
 
-        if (
-            req.body.meanings &&
-            req.body.meanings.length > 0
-        ) {
+        if (Array.isArray(meanings)) {
 
-            for (const meaning of req.body.meanings) {
+            for (const meaning of meanings) {
 
                 await meaningModel.addMeaning(
                     connection,
@@ -79,16 +106,17 @@ async function addDictionary(req, res) {
 
         }
 
+        // ==========================================
+        // Commit
+        // ==========================================
 
         await connection.commit();
 
-
-        res.json({
+        return res.json({
             success: true,
             message: "Dictionary word created successfully.",
             wordId
         });
-
 
     } catch (error) {
 
@@ -99,22 +127,17 @@ async function addDictionary(req, res) {
             error
         );
 
-
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: "Failed to create dictionary word."
         });
-
 
     } finally {
 
         connection.release();
 
     }
-
 }
-
-
 // ==========================================
 // Add Meaning to Existing Dictionary Word
 // ==========================================
